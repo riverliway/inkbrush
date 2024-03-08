@@ -1,5 +1,11 @@
 import { writeFileSync } from 'fs'
-import { Viewbox } from '../src/index'
+
+interface Viewbox {
+  x: number
+  y: number
+  width: number
+  height: number
+}
 
 /**
  * Writes the svg to a file

@@ -6,18 +6,7 @@ import { Coord } from './vector'
 const DEFAULT_BEND = 1
 const DEFAULT_PRECISION = 3
 
-export interface Viewbox {
-  x: number
-  y: number
-  width: number
-  height: number
-}
-
 export interface InkbrushParams {
-  /*
-   * The viewbox of the svg to draw the inkbrush in
-   */
-  viewbox: Viewbox
   /**
    * The points indicating the path of the inkbrush
    */

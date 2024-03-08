@@ -31,7 +31,6 @@ const test = (): void => {
   }
 
   const path = generateInkbrush({
-    viewbox,
     points: threeHumps,
     strokeWidths: [{
       breakpoint: 0,
