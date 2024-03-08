@@ -1,6 +1,6 @@
 import { calculateBezierPoints } from './bezier'
 import { calculateEdgeCurves } from './width'
-import { toPath } from './svg'
+import { toPath } from './createPath'
 import { Coord } from './vector'
 
 const DEFAULT_BEND = 1
@@ -84,3 +84,5 @@ export const generateInkbrush = (inkbrush: InkbrushParams): string => {
 
   return toPath(edge1, edge2, precision)
 }
+
+export * as svg from './svg'
