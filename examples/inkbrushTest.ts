@@ -35,13 +35,13 @@ const test = (): void => {
     points: threeHumps,
     strokeWidths: [{
       breakpoint: 0,
-      strokeWidth: 1
+      strokeWidth: 5
     }, {
       breakpoint: 0.5,
       strokeWidth: 10
     }, {
       breakpoint: 1,
-      strokeWidth: 1
+      strokeWidth: 5
     }],
     end: {
       numSpikes: 10,
