@@ -1,5 +1,5 @@
 import { Spline } from './spline'
-import { Coord } from './vector'
+import { Coord, add, normalize, scale, subtract } from './vector'
 import { alterBezierPoints, calculateBezierPoints } from './bezier'
 
 const DEFAULT_WIDTH = 1
@@ -22,7 +22,6 @@ export interface Curve {
  */
 export const calculateEdgeCurves = (middleCurve: Curve, bend: number): [Curve, Curve] => {
   const strokeWidths = interpolateWidths(middleCurve)
-  console.log(strokeWidths)
   const edge1: Curve = { points: [], bezierPoints: [] }
   const edge2: Curve = { points: [], bezierPoints: [] }
 
@@ -31,24 +30,13 @@ export const calculateEdgeCurves = (middleCurve: Curve, bend: number): [Curve, C
     const b = i === middleCurve.points.length - 1 ? middleCurve.bezierPoints[i - 1]  : middleCurve.bezierPoints[i]
     const w = strokeWidths[i]
 
-    const normal = {
+    const normal = scale(normalize({
       x: b.y - p.y,
       y: p.x - b.x
-    }
+    }), i === middleCurve.points.length - 1 ? -1 : 1)
 
-    const length = Math.hypot(normal.x, normal.y)
-    normal.x /= (i === middleCurve.points.length - 1 ? -1 : 1) * length
-    normal.y /= (i === middleCurve.points.length - 1 ? -1 : 1) * length
-
-    edge1.points.push({
-      x: p.x + normal.x * w,
-      y: p.y + normal.y * w
-    })
-
-    edge2.points.push({
-      x: p.x - normal.x * w,
-      y: p.y - normal.y * w
-    })
+    edge1.points.push(add(p, scale(normal, w)))
+    edge2.points.push(subtract(p, scale(normal, w)))
   }
 
   edge1.bezierPoints = calculateBezierPoints(edge1.points, bend)

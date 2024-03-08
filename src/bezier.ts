@@ -1,4 +1,4 @@
-import { Coord, locateIntersection, locateMidpoint } from './vector'
+import { Coord, add, distance, locateIntersection, locateMidpoint, normalize, scale, subtract } from './vector'
 import { Curve } from './width'
 
 /**
@@ -14,10 +14,7 @@ export const calculateBezierPoints = (points: Coord[], bend: number): Coord[] =>
     const p = points[i]
     const b = bezierPoints[bezierPoints.length - 1]
     
-    bezierPoints.push({
-      x: 2 * p.x - b.x,
-      y: 2 * p.y - b.y
-    })
+    bezierPoints.push(subtract(scale(p, 2), b))
   }
 
   return bezierPoints
@@ -31,11 +28,7 @@ export const calculateBezierPoints = (points: Coord[], bend: number): Coord[] =>
  */
 const calculateFirstControlPoint = (p1: Coord, p2: Coord, bend: number): Coord => {
   const midpoint = locateMidpoint(p1, p2)
-
-  const offset = {
-    x: midpoint.x - p1.x,
-    y: midpoint.y - p1.y
-  }
+  const offset = subtract(midpoint, p1)
 
   return {
     x: midpoint.x + offset.y * bend,
@@ -64,25 +57,16 @@ export const alterBezierPoints = (middle: Curve, edge: Curve): Coord[] => {
       return locateMidpoint(edgeP1, edgeP2)
     }
 
-    const strokeWidth1 = Math.hypot(middleP1.x - edgeP1.x, middleP1.y - edgeP1.y)
-    const strokeWidth2 = Math.hypot(middleP2.x - edgeP2.x, middleP2.y - edgeP2.y)
+    const strokeWidth1 = distance(middleP1, edgeP1)
+    const strokeWidth2 = distance(middleP2, edgeP2)
     const strokeWidth = (strokeWidth1 + strokeWidth2) / 2
 
-    const middleDist = Math.hypot(middleP1.x - intersection.x, middleP1.y - intersection.y)
-    const edgeDist = Math.hypot(edgeP1.x - intersection.x, edgeP1.y - intersection.y)
+    const middleDist = distance(middleP1, intersection)
+    const edgeDist = distance(edgeP1, intersection)
     const direction = middleDist > edgeDist ? 1 : -1
 
-    const normal = {
-      x: intersection.x - middleB.x,
-      y: intersection.y - middleB.y,
-    }
-    const normalDist = Math.hypot(normal.x, normal.y)
-    normal.x /= normalDist
-    normal.y /= normalDist
+    const normal = normalize(subtract(intersection, middleB))
 
-    return {
-      x: middleB.x + normal.x * strokeWidth * direction,
-      y: middleB.y + normal.y * strokeWidth * direction
-    }
+    return add(middleB, scale(normal, strokeWidth * direction))
   })
 }

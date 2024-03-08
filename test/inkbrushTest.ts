@@ -32,7 +32,7 @@ const test = (): void => {
 
   const path = generateInkbrush({
     viewbox,
-    points: cresent,
+    points: threeHumps,
     strokeWidths: [{
       breakpoint: 0,
       strokeWidth: 1
@@ -48,7 +48,7 @@ const test = (): void => {
       maxSpikeSize: 1,
       minSpikeSize: 1
     },
-    bend: 1
+    bend: 0.5
   })
 
   writeSvg('test.svg', path, viewbox)
