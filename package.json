@@ -1,0 +1,30 @@
+{
+  "name": "inkbrush",
+  "version": "1.0.0",
+  "description": "generating traditional inkbrush style SVG paths",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/riverliway/inkbrush.git"
+  },
+  "keywords": [
+    "ink",
+    "brush",
+    "SVG",
+    "path"
+  ],
+  "author": "Riverli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/riverliway/inkbrush/issues"
+  },
+  "homepage": "https://github.com/riverliway/inkbrush#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "ts-standard": "^12.0.2",
+    "typescript": "^5.4.2"
+  }
+}
