@@ -86,3 +86,4 @@ export const generateInkbrush = (inkbrush: InkbrushParams): string => {
 }
 
 export * as svg from './svg'
+export * as vector from './vector'
