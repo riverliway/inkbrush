@@ -1,6 +1,6 @@
 {
   "name": "inkbrush",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "generating traditional inkbrush style SVG paths",
   "main": "lib/index.js",
   "files": [
