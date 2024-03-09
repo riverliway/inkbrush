@@ -1,4 +1,4 @@
-import { Coord } from './vector'
+import { Coord, distance, locateMidpoint } from './vector'
 
 /**
  * @param destination - the coordinate to move to
@@ -95,8 +95,9 @@ export const arc = (rx: number, ry: number, xAxisRotation: number, largeArcFlag:
  * @param precision - the precision of the numbers in the SVG path
  * @returns the SVG path string for a half circle
  */
-export const halfCircle = (destination: Coord, precision: number): string => {
-  return arc(1, 1, 0, 1, 1, destination, precision)
+export const halfCircle = (from: Coord, destination: Coord, precision: number): string => {
+  const radius = distance(destination, from) / 2
+  return arc(radius, radius, 0, 1, 1, destination, precision)
 }
 
 /**

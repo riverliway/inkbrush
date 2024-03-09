@@ -21,7 +21,7 @@ export const toPath = (edge1: Curve, edge2: Curve, precision: number): string =>
   const end2 = edge2.points[edge2.points.length - 1]
   const endDist = distance(end1, end2)
   if (endDist > Math.pow(10, -precision)) {
-    path.push(halfCircle(end2, precision))
+    path.push(halfCircle(end1, end2, precision))
   }
 
   for (let i = edge2.points.length - 2; i >= 0; i--) {
@@ -33,7 +33,7 @@ export const toPath = (edge1: Curve, edge2: Curve, precision: number): string =>
   const start2 = edge2.points[0]
   const startDist = distance(start1, start2)
   if (startDist > Math.pow(10, -precision)) {
-    path.push(halfCircle(start1, precision))
+    path.push(halfCircle(start2, start1, precision))
   }
 
   return path.join(' ')
