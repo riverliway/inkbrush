@@ -65,13 +65,26 @@ export const generateInkbrush = (inkbrush: InkbrushParams): string => {
     return ''
   }
 
-  const bend = inkbrush.bend && !isNaN(inkbrush.bend) && isFinite(inkbrush.bend) ? inkbrush.bend : DEFAULT_BEND
-  const precision = inkbrush.precision && !isNaN(inkbrush.precision) && isFinite(inkbrush.precision) ? inkbrush.precision : DEFAULT_PRECISION
+  const bend = validateNumber(inkbrush.bend, DEFAULT_BEND)
+  const precision = validateNumber(inkbrush.precision, DEFAULT_PRECISION)
 
   const bezierPoints = calculateBezierPoints(inkbrush.points, bend)
   const [edge1, edge2] = calculateEdgeCurves({ points: inkbrush.points, bezierPoints, strokeWidths: inkbrush.strokeWidths }, bend)
 
   return toPath(edge1, edge2, precision)
+}
+
+/**
+ * @param num - the number to validate
+ * @param defaultNum - the default number to use if the given number is invalid
+ * @returns the validated number
+ */
+const validateNumber = (num: number | undefined | null, defaultNum: number): number => {
+  if (num === null || num === undefined || isNaN(num) || !isFinite(num)) {
+    return defaultNum
+  }
+
+  return num
 }
 
 export * as svg from './svg'

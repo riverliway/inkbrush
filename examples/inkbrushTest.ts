@@ -22,6 +22,11 @@ const cresent = [
   { x: 321.248, y: 430.587 }
 ]
 
+const straightLine = [
+  { x: 100, y: 250 },
+  { x: 500, y: 250 }
+]
+
 const test = (): void => {
   const viewbox = {
     x: 0,
@@ -31,7 +36,7 @@ const test = (): void => {
   }
 
   const path = generateInkbrush({
-    points: threeHumps,
+    points: straightLine,
     strokeWidths: [{
       breakpoint: 0,
       strokeWidth: 5
@@ -47,7 +52,7 @@ const test = (): void => {
       maxSpikeSize: 1,
       minSpikeSize: 1
     },
-    bend: 0.5
+    bend: 0
   })
 
   writeSvg('test.svg', path, viewbox)
